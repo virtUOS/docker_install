@@ -38,5 +38,5 @@ Example `requirements.yml`:
 roles:
   - src: https://github.com/virtUOS/docker_install.git
     scm: git
-    version: 0.1.0
+    version: 0.2.0
 ```
