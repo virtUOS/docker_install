@@ -1,0 +1,26 @@
+---
+
+- name: Install kernel modules
+  ansible.builtin.package:
+    name: kernel-modules-extra
+  register: _extra_kernel_modules
+
+- name: Reboot after installing kernel modules
+  ansible.builtin.reboot:
+    msg: Rebooting after module install
+    reboot_timeout: 300
+    post_reboot_delay: 30
+  when: _extra_kernel_modules.changed
+
+- name: Re-gather facts after reboot
+  ansible.builtin.setup:
+  when: _extra_kernel_modules.changed
+
+- name: Load kernel modules for iptables compaatibility on el10
+  community.general.modprobe:
+    name: '{{ item }}'
+    persistent: present
+  loop:
+    - xt_addrtype
+    - nf_nat
+    - nf_conntrack

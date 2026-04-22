@@ -1,0 +1,9 @@
+---
+
+exclude_paths:
+  - .ansible/
+  - .cache/
+  - .github/
+
+skip_list:
+  - no-handler
